@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="talc" default="dist" basedir=".">
+<project name="talc" default="jar" basedir=".">
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
     
-    <target name="init">
+    <target name="-pre-init"> <!--This example found at Stack Overflow-->
+        <property name="project.name" value="talc" />
+        <property name="version.num" value="1.0" />
+        <tstamp>
+           <format property="NOW" pattern="yyyy-MM-dd HH:mm:ss z" />
+        </tstamp>
+
+        <!--
+        <exec outputproperty="svna.version" executable="svnversion">
+            <arg value="-c" />
+            <redirector>
+                <outputfilterchain>
+                    <tokenfilter>
+                        <replaceregex pattern="^[0-9]*:?" replace="" flags="g"/>
+                        <replaceregex pattern="M" replace="" flags="g"/>
+                    </tokenfilter>
+                </outputfilterchain>
+            </redirector>
+        </exec>
+        -->
+
+
+        <manifest file="MANIFEST.MF">
+           <attribute name="Bundle-Name" value="${project.name}" />           
+           <attribute name="Bundle-Version" value="${version.num}" />
+           <attribute name="Bundle-Date" value="${NOW}" />
+           <!--<attribute name="Bundle-Revision" value="${svna.version}" />-->
+           <attribute name="Implementation-Title" value="${project.name}" />
+           <attribute name="Implementation-Version" value="${version.num}" />
+           <!--<attribute name="Implementation-URL" value="http://www.example.com" />-->
+        </manifest>
+
+    </target>
+    
+    <target name="init" depends="-pre-init">
         <!-- Create the time stamp -->
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}"/>
+        <mkdir dir="${dist}"/>
     </target>
     
     <target name="compile" depends="init" description="compile the source " >
@@ -16,7 +51,7 @@
         <javac srcdir="${src}" destdir="${build}"/>
     </target>
     
-    <target name="dist" description="generate the distribution" depends="compile">
+    <target name="jar" description="generate the distribution" depends="compile">
         <!-- Create the distribution directory -->
         <mkdir dir="${dist}/lib"/>
 
@@ -24,8 +59,7 @@
         <jar jarfile="${dist}/lib/talc-${DSTAMP}.jar" basedir="${build}"/>
     </target>
     
-    <target name="clean"
-          description="clean up" >
+    <target name="clean" description="clean up" >
       <!-- Delete the ${build} and ${dist} directory trees -->
       <delete dir="${build}"/>
       <delete dir="${dist}"/>
