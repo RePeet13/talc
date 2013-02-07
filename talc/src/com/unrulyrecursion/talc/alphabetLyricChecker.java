@@ -1,12 +1,10 @@
 package com.unrulyrecursion.talc;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
 
 /**
  * This class/program takes in lyrics and checks to see if throughout the course
