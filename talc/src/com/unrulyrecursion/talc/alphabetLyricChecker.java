@@ -21,12 +21,10 @@ public class alphabetLyricChecker {
     private static JFrame window;
     private JLabel result;
     private JPanel fbPanel, lyricsPanel;
-    private static JPanel top;
     private JTextArea lyricsText;
     private JTextPane lyricsResults;
     private JButton checkButton, newButton;
-    private String eol = System.getProperty("line.separator"); // Later when writing lyrics to results this will save time
-
+    
     /**
      * @param args
      */
